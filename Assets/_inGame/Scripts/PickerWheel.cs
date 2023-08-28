@@ -100,7 +100,7 @@ namespace EasyUI.PickerWheelUI {
          WheelPiece piece = wheelPieces [ index ] ;
          Transform pieceTrns = InstantiatePiece ().transform.GetChild (0) ;
 
-         pieceTrns.GetChild (0).GetComponent <Image> ().sprite = piece.Icon ;
+       
          pieceTrns.GetChild (1).GetComponent <Text> ().text = piece.Label ;
          pieceTrns.GetChild (2).GetComponent <Text> ().text = piece.Amount.ToString () ;
 
