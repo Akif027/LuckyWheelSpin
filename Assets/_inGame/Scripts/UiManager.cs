@@ -2,6 +2,7 @@ using EasyUI.PickerWheelUI;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 public class UiManager : MonoBehaviour
 {
     [Space]
@@ -11,7 +12,7 @@ public class UiManager : MonoBehaviour
 
     private static UiManager instance;
 
-    public InputField labelInputField;
+    public TMP_InputField labelInputField;
     public Button addButton;
 
 
@@ -77,7 +78,7 @@ public class UiManager : MonoBehaviour
 
             // Instantiate a new UI Text element and set its text
             GameObject newTextObject = Instantiate(textPrefab, textListContainer);
-            newTextObject.GetComponent<Text>().text = newText;
+            newTextObject.GetComponent<TMP_Text>().text = newText;
 
             Debug.Log("Text added: " + newText);
         }
