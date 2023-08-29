@@ -58,7 +58,8 @@ namespace EasyUI.PickerWheelUI {
 
       private List<int> nonZeroChancesIndices = new List<int> () ;
 
-      private void Start () {
+     
+        private void Start () {
  
 
          SetupAudio () ;
@@ -107,7 +108,9 @@ namespace EasyUI.PickerWheelUI {
 
 
       public void Spin () {
-            pieceAngle = 360 / UiManager.Instance.wheelPieces.Count;
+
+            
+             pieceAngle = 360 / UiManager.Instance.wheelPieces.Count;
             halfPieceAngle = pieceAngle / 2f;
             halfPieceAngleWithPaddings = halfPieceAngle - (halfPieceAngle / 4f);
 

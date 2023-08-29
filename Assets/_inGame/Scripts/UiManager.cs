@@ -12,15 +12,15 @@ public class UiManager : MonoBehaviour
 
     private static UiManager instance;
 
-    public TMP_InputField labelInputField;
+    public InputField labelInputField;
     public Button addButton;
 
 
     public Transform textListContainer; // Drag and drop the container for the text list in the Inspector
     public GameObject textPrefab; // Drag and drop the UI Text prefab in the Inspector
 
-    private List<string> textList = new List<string>();
-
+    GameObject newTextObject;
+    private WheelPiece wheelPieceInstance;
     public static UiManager Instance
     {
         get
@@ -46,16 +46,21 @@ public class UiManager : MonoBehaviour
     private void Start()
     {
         addButton.onClick.AddListener(AddWheelPiece);
+  
+
     }
 
     private void AddWheelPiece()
     {
+     
         string newLabel = labelInputField.text;
-
+    
         if (!string.IsNullOrEmpty(newLabel))
         {
+            float chanceR = Random.Range(0, 101);
             WheelPiece newWheelPiece = new WheelPiece();
             newWheelPiece.Label = newLabel;
+            newWheelPiece.Chance = chanceR; 
             wheelPieces.Add(newWheelPiece);
             labelInputField.text = string.Empty; // Clear the input field after adding a label
             Debug.Log("WheelPiece added with label: " + newLabel);
@@ -67,7 +72,34 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    public void removePieces()
+    {
+       
+        RemoveWheelPiece(0);
+    }
 
+
+ 
+
+    private void RemoveWheelPiece(int index)
+    {
+        if (index >= 0 && index < wheelPieces.Count)
+        {
+            WheelPiece removedPiece = wheelPieces[index];
+            wheelPieces.RemoveAt(index);
+            Debug.Log("WheelPiece removed with label: " + removedPiece.Label);
+
+            // Remove the corresponding UI text object
+            if (textListContainer.childCount > index)
+            {
+                Destroy(textListContainer.GetChild(index).gameObject);
+            }
+        }
+        else
+        {
+            Debug.Log("Invalid index for removing a wheel piece.");
+        }
+    }
     private void AddTextToList(string newText)
     {
         
@@ -77,9 +109,10 @@ public class UiManager : MonoBehaviour
           
 
             // Instantiate a new UI Text element and set its text
-            GameObject newTextObject = Instantiate(textPrefab, textListContainer);
+           newTextObject = Instantiate(textPrefab, textListContainer);
             newTextObject.GetComponent<TMP_Text>().text = newText;
-
+            newTextObject.GetComponentInChildren<Button>().onClick.AddListener(removePieces);
+           
             Debug.Log("Text added: " + newText);
         }
         else
