@@ -30,9 +30,7 @@ namespace EasyUI.PickerWheelUI {
       [Range (1, 20)] public int spinDuration = 8 ;
       [SerializeField] [Range (.2f, 2f)] private float wheelSize = 1f ;
 
-      [Space]
-      [Header ("Picker wheel pieces :")]
-      public WheelPiece[] wheelPieces ;
+     
 
       // Events
       private UnityAction onSpinStartEvent ;
@@ -60,16 +58,7 @@ namespace EasyUI.PickerWheelUI {
       private List<int> nonZeroChancesIndices = new List<int> () ;
 
       private void Start () {
-         pieceAngle = 360 / wheelPieces.Length ;
-         halfPieceAngle = pieceAngle / 2f ;
-         halfPieceAngleWithPaddings = halfPieceAngle - (halfPieceAngle / 4f) ;
-
-         Generate () ;  
-
-         CalculateWeightsAndIndices () ;
-         if (nonZeroChancesIndices.Count == 0)
-            Debug.LogError ("You can't set all pieces chance to zero") ;
-
+ 
 
          SetupAudio () ;
 
@@ -85,19 +74,19 @@ namespace EasyUI.PickerWheelUI {
          wheelPiecePrefab = InstantiatePiece () ;
 
          RectTransform rt = wheelPiecePrefab.transform.GetChild (0).GetComponent <RectTransform> () ;
-         float pieceWidth = Mathf.Lerp (pieceMinSize.x, pieceMaxSize.x, 1f - Mathf.InverseLerp (piecesMin, piecesMax, wheelPieces.Length)) ;
-         float pieceHeight = Mathf.Lerp (pieceMinSize.y, pieceMaxSize.y, 1f - Mathf.InverseLerp (piecesMin, piecesMax, wheelPieces.Length)) ;
+         float pieceWidth = Mathf.Lerp (pieceMinSize.x, pieceMaxSize.x, 1f - Mathf.InverseLerp (piecesMin, piecesMax, UiManager.Instance.wheelPieces.Count)) ;
+         float pieceHeight = Mathf.Lerp (pieceMinSize.y, pieceMaxSize.y, 1f - Mathf.InverseLerp (piecesMin, piecesMax, UiManager.Instance.wheelPieces.Count)) ;
          rt.SetSizeWithCurrentAnchors (RectTransform.Axis.Horizontal, pieceWidth) ;
          rt.SetSizeWithCurrentAnchors (RectTransform.Axis.Vertical, pieceHeight) ;
 
-         for (int i = 0; i < wheelPieces.Length; i++)
+         for (int i = 0; i < UiManager.Instance.wheelPieces.Count; i++)
             DrawPiece (i) ;
 
          Destroy (wheelPiecePrefab) ;
       }
 
       private void DrawPiece (int index) {
-         WheelPiece piece = wheelPieces [ index ] ;
+         WheelPiece piece = UiManager.Instance.wheelPieces [ index ] ;
          Transform pieceTrns = InstantiatePiece ().transform.GetChild (0) ;
 
        
@@ -117,17 +106,28 @@ namespace EasyUI.PickerWheelUI {
 
 
       public void Spin () {
-         if (!_isSpinning) {
+            pieceAngle = 360 / UiManager.Instance.wheelPieces.Count;
+            halfPieceAngle = pieceAngle / 2f;
+            halfPieceAngleWithPaddings = halfPieceAngle - (halfPieceAngle / 4f);
+
+            Generate();
+
+            CalculateWeightsAndIndices();
+            if (nonZeroChancesIndices.Count == 0)
+                Debug.LogError("You can't set all pieces chance to zero");
+
+
+            if (!_isSpinning) {
             _isSpinning = true ;
             if (onSpinStartEvent != null)
                onSpinStartEvent.Invoke () ;
 
             int index = GetRandomPieceIndex () ;
-            WheelPiece piece = wheelPieces [ index ] ;
+            WheelPiece piece = UiManager.Instance.wheelPieces [ index ] ;
 
             if (piece.Chance == 0 && nonZeroChancesIndices.Count != 0) {
                index = nonZeroChancesIndices [ Random.Range (0, nonZeroChancesIndices.Count) ] ;
-               piece = wheelPieces [ index ] ;
+               piece = UiManager.Instance.wheelPieces [ index ] ;
             }
 
             float angle = -(pieceAngle * index) ;
@@ -185,16 +185,16 @@ namespace EasyUI.PickerWheelUI {
       private int GetRandomPieceIndex () {
          double r = rand.NextDouble () * accumulatedWeight ;
 
-         for (int i = 0; i < wheelPieces.Length; i++)
-            if (wheelPieces [ i ]._weight >= r)
+         for (int i = 0; i < UiManager.Instance.wheelPieces.Count; i++)
+            if (UiManager.Instance.wheelPieces [ i ]._weight >= r)
                return i ;
 
          return 0 ;
       }
 
       private void CalculateWeightsAndIndices () {
-         for (int i = 0; i < wheelPieces.Length; i++) {
-            WheelPiece piece = wheelPieces [ i ] ;
+         for (int i = 0; i < UiManager.Instance.wheelPieces.Count; i++) {
+            WheelPiece piece = UiManager.Instance.wheelPieces [ i ] ;
 
             //add weights:
             accumulatedWeight += piece.Chance ;
@@ -216,7 +216,7 @@ namespace EasyUI.PickerWheelUI {
          if (PickerWheelTransform != null)
             PickerWheelTransform.localScale = new Vector3 (wheelSize, wheelSize, 1f) ;
 
-         if (wheelPieces.Length > piecesMax || wheelPieces.Length < piecesMin)
+         if (UiManager.Instance.wheelPieces.Count > piecesMax || UiManager.Instance.wheelPieces.Count < piecesMin)
             Debug.LogError ("[ PickerWheelwheel ]  pieces length must be between " + piecesMin + " and " + piecesMax) ;
       }
    }
