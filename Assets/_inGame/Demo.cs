@@ -21,7 +21,7 @@ public class Demo : MonoBehaviour {
                + "\n <b>Amount:</b> " + wheelPiece.Amount + "      <b>Chance:</b> " + wheelPiece.Chance + "%"
             ) ;
 
-             UiManager.Instance.Winner(wheelPiece.Label);
+             UiManager.Instance.Winner(wheelPiece.Label,wheelPiece.Icon);
             uiSpinButton.interactable = true ;
             uiSpinButtonText.text = "Spin" ;
          }) ;

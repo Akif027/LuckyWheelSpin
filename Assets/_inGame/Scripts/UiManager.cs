@@ -20,6 +20,7 @@ public class UiManager : MonoBehaviour
     public GameObject winnerPanel;
     public GameObject gamePanel;
     public TMP_Text winnerText;
+    public Image Winimg;
 
     public TMP_InputField labelInputField;
     public Button addButton;
@@ -98,13 +99,15 @@ public class UiManager : MonoBehaviour
         SortTextAlphabetically();
     }
 
-    public void Winner(string name)
+    public void Winner(string name,Sprite sprite)
     {
         gamePanel.SetActive(false);
         winnerText.text = $"Winner is {name}";
+        Winimg.sprite = sprite;
         winnerPanel.SetActive(true);
 
     }
+
     public void SelectImage()
     {
         string imagePath = UnityEditor.EditorUtility.OpenFilePanel("Select Image", "", "png,jpg,jpeg");
