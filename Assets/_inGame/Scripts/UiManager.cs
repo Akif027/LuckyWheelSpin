@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class UiManager : MonoBehaviour
 {
     [Space]
@@ -12,7 +14,11 @@ public class UiManager : MonoBehaviour
 
     private static UiManager instance;
 
-    public InputField labelInputField;
+    public GameObject winnerPanel;
+    public GameObject gamePanel;
+    public TMP_Text winnerText;
+
+    public TMP_InputField labelInputField;
     public Button addButton;
 
 
@@ -39,7 +45,18 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    public void Winner(string name)
+    {
+        gamePanel.SetActive(false);
+        winnerText.text = $"Winner is {name}";
+        winnerPanel.SetActive(true);
 
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 
 
@@ -109,9 +126,9 @@ public class UiManager : MonoBehaviour
           
 
             // Instantiate a new UI Text element and set its text
-           newTextObject = Instantiate(textPrefab, textListContainer);
+             newTextObject = Instantiate(textPrefab, textListContainer);
             newTextObject.GetComponent<TMP_Text>().text = newText;
-            newTextObject.GetComponentInChildren<Button>().onClick.AddListener(removePieces);
+            //newTextObject.GetComponentInChildren<Button>().onClick.AddListener(removePieces);
            
             Debug.Log("Text added: " + newText);
         }
