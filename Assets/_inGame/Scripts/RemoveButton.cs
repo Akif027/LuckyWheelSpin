@@ -12,6 +12,10 @@ public class RemoveButton : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+        else
+        {
+            gameObject.SetActive(true);
+        }
     }
 
  

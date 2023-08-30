@@ -102,6 +102,7 @@ public class UiManager : MonoBehaviour
     public void Winner(string name,Sprite sprite)
     {
         gamePanel.SetActive(false);
+  
         winnerText.text = $"Winner is {name}";
         Winimg.sprite = sprite;
         winnerPanel.SetActive(true);

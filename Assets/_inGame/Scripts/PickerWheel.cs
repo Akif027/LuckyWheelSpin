@@ -64,7 +64,7 @@ namespace EasyUI.PickerWheelUI {
 
          SetupAudio () ;
 
-      }
+        }
 
       private void SetupAudio () {
          audioSource.clip = tickAudioClip ;
@@ -106,11 +106,9 @@ namespace EasyUI.PickerWheelUI {
          return Instantiate (wheelPiecePrefab, wheelPiecesParent.position, Quaternion.identity, wheelPiecesParent) ;
       }
 
-
-      public void Spin () {
-
-            
-             pieceAngle = 360 / UiManager.Instance.wheelPieces.Count;
+        public void done()
+        {
+            pieceAngle = 360 / UiManager.Instance.wheelPieces.Count;
             halfPieceAngle = pieceAngle / 2f;
             halfPieceAngleWithPaddings = halfPieceAngle - (halfPieceAngle / 4f);
 
@@ -119,6 +117,11 @@ namespace EasyUI.PickerWheelUI {
             CalculateWeightsAndIndices();
             if (nonZeroChancesIndices.Count == 0)
                 Debug.LogError("You can't set all pieces chance to zero");
+        }
+      public void Spin () {
+
+            
+         
 
 
             if (!_isSpinning) {
