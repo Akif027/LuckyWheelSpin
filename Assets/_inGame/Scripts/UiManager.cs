@@ -127,7 +127,7 @@ public class UiManager : MonoBehaviour
     public void SelectImage()
     {
         string imagePath = UnityEditor.EditorUtility.OpenFilePanel("Select Image", "", "png,jpg,jpeg");
-        if (!string.IsNullOrEmpty(imagePath))
+        if (!string.IsNullOrEmpty(imagePath) && totalImage < 9)
         {
             StartCoroutine(LoadImage(imagePath));
         }
@@ -173,7 +173,7 @@ public class UiManager : MonoBehaviour
      
         string newLabel = labelInputField.text;
     
-        if (!string.IsNullOrEmpty(newLabel))
+        if (!string.IsNullOrEmpty(newLabel) && TotalNames < 9)
         {
             float chanceR = Random.Range(0, 101);
             WheelPiece newWheelPiece = new WheelPiece();
