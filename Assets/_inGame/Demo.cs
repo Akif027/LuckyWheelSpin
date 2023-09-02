@@ -1,10 +1,11 @@
 ﻿using UnityEngine ;
 using EasyUI.PickerWheelUI ;
 using UnityEngine.UI ;
+using TMPro;
 
 public class Demo : MonoBehaviour {
    [SerializeField] private Button uiSpinButton ;
-   [SerializeField] private Text uiSpinButtonText ;
+   [SerializeField] private TMP_Text uiSpinButtonText ;
 
    [SerializeField] private PickerWheel pickerWheel ;
 

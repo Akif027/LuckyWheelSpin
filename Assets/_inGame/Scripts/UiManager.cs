@@ -24,6 +24,7 @@ public class UiManager : MonoBehaviour
 
     public TMP_InputField labelInputField;
     public Button addButton;
+    public Button SpinButtton;
 
 
     public Transform textListContainer; // Drag and drop the container for the text list in the Inspector
@@ -31,14 +32,16 @@ public class UiManager : MonoBehaviour
     public GameObject iconPrefab;
     GameObject newTextObject;
 
+    [SerializeField] GameObject GamePanel;
+    [SerializeField] GameObject SetingPanel;
 
     public VerticalLayoutGroup textContainer; // Reference to the container holding the text elements
     public GameObject textElementPrefab; // Reference to the prefab for each text element
 
     private List<Transform> textElements = new List<Transform>();
 
-
-
+    int TotalNames = 0;
+    int totalImage = 0;
     public static UiManager Instance
     {
         get
@@ -71,6 +74,18 @@ public class UiManager : MonoBehaviour
         {
             textElements.Add(child);
         }
+        if(totalImage > 0 || TotalNames > 0)
+        {
+             SpinButtton.interactable = true;
+           
+        }else
+        if (totalImage <= 0 || TotalNames <= 0)
+        {
+            SpinButtton.interactable = false;
+            
+        }
+      
+      
     }
     public void SortTextAlphabetically()
     {
@@ -144,7 +159,13 @@ public class UiManager : MonoBehaviour
     }
 
 
-
+    public void resetTextandImg()
+    {
+        totalImage = 0;
+        TotalNames = 0;
+        gamePanel.SetActive(true);
+        SetingPanel.SetActive(false);
+    }
 
 
     private void AddWheelPiece()
@@ -199,9 +220,9 @@ public class UiManager : MonoBehaviour
     }
     private void AddTextToList(string newText)
     {
-        
+        Debug.Log(TotalNames);
 
-        if (!string.IsNullOrEmpty(newText))
+        if (!string.IsNullOrEmpty(newText) && TotalNames <9)
         {
           
 
@@ -209,7 +230,7 @@ public class UiManager : MonoBehaviour
              newTextObject = Instantiate(textPrefab, textListContainer);
             newTextObject.GetComponent<TMP_Text>().text = newText;
             //newTextObject.GetComponentInChildren<Button>().onClick.AddListener(removePieces);
-           
+            TotalNames++;
             Debug.Log("Text added: " + newText);
         }
         else
@@ -223,14 +244,14 @@ public class UiManager : MonoBehaviour
     {
 
 
-        if (img !=null)        {
+        if (img !=null && totalImage<=9)        {
 
 
             // Instantiate a new UI Text element and set its text
             newTextObject = Instantiate(iconPrefab, textListContainer);
             newTextObject.GetComponent<Image>().sprite = img;
             //newTextObject.GetComponentInChildren<Button>().onClick.AddListener(removePieces);
-
+            totalImage++;
             Debug.Log("img added: " + img);
         }
         else

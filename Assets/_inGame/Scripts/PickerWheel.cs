@@ -89,18 +89,21 @@ namespace EasyUI.PickerWheelUI {
 
       private void DrawPiece (int index) {
          WheelPiece piece = UiManager.Instance.wheelPieces [ index ] ;
-         Transform pieceTrns = InstantiatePiece ().transform.GetChild (0) ;
+         Transform pieceTrns1 = InstantiatePiece ().transform.GetChild (0) ;
+            Transform pieceTrns = InstantiatePiece().transform.GetChild(1);
+
 
             pieceTrns.GetChild(0).GetComponent<Image>().sprite = piece.Icon;
-            pieceTrns.GetChild (1).GetComponent <TMP_Text> ().text = piece.Label ;
-         pieceTrns.GetChild (2).GetComponent <Text> ().text = piece.Amount.ToString () ;
+            pieceTrns1.GetChild (0).GetComponent <TMP_Text> ().text = piece.Label ;
+         pieceTrns.GetChild (1).GetComponent <Text> ().text = piece.Amount.ToString () ;
 
          //Line
          Transform lineTrns = Instantiate (linePrefab, linesParent.position, Quaternion.identity, linesParent).transform ;
          lineTrns.RotateAround (wheelPiecesParent.position, Vector3.back, (pieceAngle * index) + halfPieceAngle) ;
 
          pieceTrns.RotateAround (wheelPiecesParent.position, Vector3.back, pieceAngle * index) ;
-      }
+            pieceTrns1.RotateAround(wheelPiecesParent.position, Vector3.back, pieceAngle * index);
+        }
 
       private GameObject InstantiatePiece () {
          return Instantiate (wheelPiecePrefab, wheelPiecesParent.position, Quaternion.identity, wheelPiecesParent) ;
