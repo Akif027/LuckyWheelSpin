@@ -1130,7 +1130,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.7979126, y: 136.22528}
+  m_AnchoredPosition: {x: 1.7978516, y: 136.22534}
   m_SizeDelta: {x: 0, y: -0.00012207031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &598133943
@@ -3060,12 +3060,11 @@ MonoBehaviour:
   addButton: {fileID: 645149642}
   SpinButtton: {fileID: 1758701913}
   textListContainer: {fileID: 1621561518}
-  textPrefab: {fileID: 1195284122608211241, guid: 77e52f15e232b9e4e826979ff77cb66e, type: 3}
-  iconPrefab: {fileID: 7031513975217772008, guid: dd00c5be45ceec840b34d984fcfb23a1, type: 3}
+  textPrefab: {fileID: 6912295252841713232, guid: bc8dc01c9b59cdd48b68207ebbda22d1, type: 3}
+  iconPrefab: {fileID: 9166381537916406782, guid: 03ab48bf253735d4f9e2d27fdbc237bf, type: 3}
   GamePanel: {fileID: 18570626}
   SetingPanel: {fileID: 598133941}
   textContainer: {fileID: 1621561519}
-  textElementPrefab: {fileID: 1195284122608211241, guid: 77e52f15e232b9e4e826979ff77cb66e, type: 3}
 --- !u!1 &1621561517
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject SetingPanel;
 
     public VerticalLayoutGroup textContainer; // Reference to the container holding the text elements
-    public GameObject textElementPrefab; // Reference to the prefab for each text element
+   
 
     private List<Transform> textElements = new List<Transform>();
 
@@ -228,7 +228,9 @@ public class UiManager : MonoBehaviour
 
             // Instantiate a new UI Text element and set its text
              newTextObject = Instantiate(textPrefab, textListContainer);
-            newTextObject.GetComponent<TMP_Text>().text = newText;
+            newTextObject.transform.GetChild(1).GetComponent<TMP_Text>().text = newText;
+            newTextObject.transform.GetChild(0).GetComponent<TMP_Text>().text =TotalNames.ToString();
+            
             //newTextObject.GetComponentInChildren<Button>().onClick.AddListener(removePieces);
             TotalNames++;
             Debug.Log("Text added: " + newText);
@@ -249,7 +251,8 @@ public class UiManager : MonoBehaviour
 
             // Instantiate a new UI Text element and set its text
             newTextObject = Instantiate(iconPrefab, textListContainer);
-            newTextObject.GetComponent<Image>().sprite = img;
+            newTextObject.transform.GetChild(0).GetComponent<Image>().sprite = img;
+            newTextObject.transform.GetChild(1).GetComponent<TMP_Text>().text = "Image"+totalImage.ToString()+".png";
             //newTextObject.GetComponentInChildren<Button>().onClick.AddListener(removePieces);
             totalImage++;
             Debug.Log("img added: " + img);
